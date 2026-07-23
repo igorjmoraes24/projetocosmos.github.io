@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cosmos Memory Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="logo-box">
+            <div class="logo-mark"><i class='bx bxs-rocket'></i></div>
+            <div>
+                <h1>Cosmos Memory</h1>
+                <p>Desafie sua memória no espaço</p>
+            </div>
+        </div>
+        <div class="player-badge">
+            <span>Comandante</span>
+            <strong id="playerNameLabel"></strong>
+            <a id="changePlayerLink" href="index.html">Trocar jogador</a>
+        </div>
+    </header>
+
+    <main class="page-shell">
+        <section class="game-grid">
+            <div class="left-panel">
+                <div class="game-controls">
+                    <div class="current-settings">
+                        <div class="setting-chip">
+                            <span>DIFICULDADE</span>
+                            <strong id="currentDifficultyLabel">Fácil</strong>
+                        </div>
+                        <div class="setting-chip">
+                            <span>TEMPORIZADOR</span>
+                            <strong id="currentTimerLabel">Ativado</strong>
+                        </div>
+                    </div>
+                    <button id="openSetupButton" class="rank-button" type="button">
+                        <i class='bx bx-cog'></i> Alterar configurações
+                    </button>
+                </div>
+
+                <div class="stats-strip">
+                    <div class="stat-box score-box">
+                        <span>PONTUAÇÃO</span>
+                        <strong id="scoreValue">0</strong>
+                    </div>
+                    <div class="combo-panel">
+                        <div class="combo-header">
+                            <span>Combo</span>
+                            <strong id="comboValue">0x</strong>
+                        </div>
+                        <div class="combo-track">
+                            <div id="comboProgress" class="combo-fill"></div>
+                        </div>
+                    </div>
+                        <div>
+                            <span>PARES ENCONTRADOS</span>
+                            <strong id="pairsFound">0 / 8</strong>
+                    </div>
+                        <div class="stat-box">
+                            <span>TENTATIVAS</span>
+                            <strong id="attempts">0</strong>
+                        </div>
+                </div>
+
+                <div class="board-panel">
+                    <div id="board" class="card-grid"></div>
+                </div>
+            </div>
+
+            <aside class="sidebar">
+                <div class="info-card">
+                    <h2>VOCÊ AINDA TEM: </h2>
+                    <div class="clock" id="timer">02:00</div>
+                </div>
+                <div class="ranking-card">
+                    <h2>RANKING SEMANAL</h2>
+                    <div class="ranking-list-wrap">
+                        <ol id="rankingList"></ol>
+                    </div>
+                    <button id="viewRankingButton" class="rank-button" type="button">Ver ranking completo</button>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <div id="setupModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="setupModalTitle">
+        <div class="modal-card setup-modal-card">
+            <div class="modal-header">
+                <h3 id="setupModalTitle">Configurar Partida</h3>
+                <button id="closeSetupModal" class="modal-close is-hidden" type="button" aria-label="Fechar configurações">✕</button>
+            </div>
+            <p>Escolha a dificuldade e o modo de tempo antes de iniciar sua jornada pela memória cósmica.</p>
+
+            <div class="difficulty-control">
+                <label>DIFICULDADE</label>
+                <div class="difficulty-buttons">
+                    <button class="difficulty active" data-level="easy" type="button">Fácil</button>
+                    <button class="difficulty" data-level="medium" type="button">Médio</button>
+                    <button class="difficulty" data-level="hard" type="button">Difícil</button>
+                </div>
+            </div>
+
+            <div class="timer-toggle-control setup-timer-control">
+                <label>TEMPORIZADOR</label>
+                <label class="switch" for="timerToggle">
+                    <input id="timerToggle" type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="modal-actions">
+                <button id="startMatchButton" class="modal-button primary" type="button">Começar Jogo</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="scoreModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle">
+        <div class="modal-card">
+            <h3 id="scoreModalTitle">Fim de jogo!</h3>
+            <p>Parabéns, <strong id="modalPlayerName"></strong>! Você marcou <strong id="modalScoreValue">0</strong> pontos e sua pontuação já foi salva no ranking.</p>
+            <div class="modal-actions">
+                <button id="playAgainButton" class="modal-button primary" type="button">Jogar novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fullRankingModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="fullRankingTitle">
+        <div class="modal-card ranking-modal-card">
+            <div class="modal-header">
+                <h3 id="fullRankingTitle">Ranking completo</h3>
+                <button id="closeFullRankingModal" class="modal-close" type="button" aria-label="Fechar ranking">✕</button>
+            </div>
+            <ol id="fullRankingList" class="full-ranking-list"></ol>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

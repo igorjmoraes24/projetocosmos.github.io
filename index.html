@@ -8,8 +8,6 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
-
     <header class="site-header">
         <div class="logo-box">
             <div class="logo-mark"><i class='bx bxs-rocket'></i></div>
@@ -20,108 +18,15 @@
         </div>
     </header>
 
-    <main class="page-shell">
-        <section class="game-grid">
-            <div class="left-panel">
-                <div class="game-controls">
-                    <div class="difficulty-control">
-                        <label>DIFICULDADE</label>
-                        <div class="difficulty-buttons">
-                            <button class="difficulty active" data-level="easy">Fácil</button>
-                            <button class="difficulty" data-level="medium">Médio</button>
-                            <button class="difficulty" data-level="hard">Difícil</button>
-                        </div>
-                    </div>
-
-                    <div class="timer-toggle-control">
-                        <label>TEMPO</label>
-                        <label class="switch" for="timerToggle">
-                            <input id="timerToggle" type="checkbox" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="stats-strip">
-                    <div class="stat-box score-box">
-                        <span>PONTUAÇÃO</span>
-                        <strong id="scoreValue">0</strong>
-                    </div>
-                    <div class="combo-panel">
-                        <div class="combo-header">
-                            <span>Combo</span>
-                            <strong id="comboValue">0x</strong>
-                        </div>
-                        <div class="combo-track">
-                            <div id="comboProgress" class="combo-fill"></div>
-                        </div>
-                    </div>
-                        <div>
-                            <span>PARES ENCONTRADOS</span>
-                            <strong id="pairsFound">0 / 8</strong>
-                    </div>
-                        <div class="stat-box">
-                            <span>TENTATIVAS</span>
-                            <strong id="attempts">0</strong>
-                        </div>
-                </div>
-
-                <div class="board-panel">
-                    <div id="board" class="card-grid"></div>
-                </div>
-            </div>
-
-            <aside class="sidebar">
-                <div class="info-card">
-                    <h2>VOCÊ AINDA TEM: </h2>
-                    <div class="clock" id="timer">02:00</div>
-                </div>
-                <div class="ranking-card">
-                    <h2>RANKING SEMANAL</h2>
-                    <ol id="rankingList"></ol>
-                    <button id="viewRankingButton" class="rank-button" type="button">Ver ranking completo</button>
-                </div>
-            </aside>
-        </section>
-
-        <section class="promo-row">
-            <div class="promo-card">
-                <strong>Melhore sua memória</strong>
-                <p>Exercite seu cérebro de forma divertida!</p>
-            </div>
-            <div class="promo-card">
-                <strong>Modo Competitivo</strong>
-                <p>Desafie jogadores e suba no ranking!</p>
-            </div>
-            <div class="promo-card">
-                <strong>Seja o melhor</strong>
-                <p>Treine, venha e torne-se o mestre da memória!</p>
-            </div>
-        </section>
+    <main class="register-shell">
+        <div class="modal-card register-card">
+            <h2>Bem-vindo, explorador!</h2>
+            <p>Digite seu nome para começar sua jornada pela memória cósmica.</p>
+            <input id="playerNameInput" type="text" maxlength="20" placeholder="Seu nome" autocomplete="off">
+            <button id="startGameButton" class="modal-button primary" type="button">Jogar</button>
+        </div>
     </main>
 
-    <div id="scoreModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle">
-        <div class="modal-card">
-            <h3 id="scoreModalTitle">Salvar pontuação</h3>
-            <p>Você marcou <strong id="modalScoreValue">0</strong> pontos. Digite seu nome para entrar no ranking.</p>
-            <input id="playerNameInput" type="text" maxlength="20" placeholder="Seu nome" autocomplete="off">
-            <div class="modal-actions">
-                <button id="cancelScoreSave" class="modal-button secondary" type="button">Agora não</button>
-                <button id="confirmScoreSave" class="modal-button primary" type="button">Salvar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="fullRankingModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="fullRankingTitle">
-        <div class="modal-card ranking-modal-card">
-            <div class="modal-header">
-                <h3 id="fullRankingTitle">Ranking completo</h3>
-                <button id="closeFullRankingModal" class="modal-close" type="button" aria-label="Fechar ranking">✕</button>
-            </div>
-            <ol id="fullRankingList" class="full-ranking-list"></ol>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script src="register.js"></script>
 </body>
 </html>
