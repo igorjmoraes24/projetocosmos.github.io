@@ -1,6 +1,7 @@
 const playerNameKey = 'cosmos-player-name';
 const playerName = localStorage.getItem(playerNameKey);
 const click = new Audio('audio/click.mp3');
+const mouse = new Audio('audio/mouse.mp3');
 
 if (!playerName) {
   window.location.href = 'index.html';
@@ -354,6 +355,12 @@ function initGame() {
 
   function selectPendingDifficulty(level) {
     pendingLevel = level;
+
+    mouse.play()
+    setTimeout(() => {
+      click.pause();
+    }, 50);
+
     difficultyButtons.forEach(button => {
       button.classList.toggle('active', button.dataset.level === level);
     });
