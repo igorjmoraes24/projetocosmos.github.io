@@ -1,5 +1,6 @@
 const playerNameKey = 'cosmos-player-name';
 const playerName = localStorage.getItem(playerNameKey);
+const click = new Audio('audio/click.mp3');
 
 if (!playerName) {
   window.location.href = 'index.html';
@@ -63,9 +64,9 @@ function initGame() {
   const rankingStorageKey = 'memory-game-ranking';
 
   const config = {
-    easy: {time: 120, multiplier: 1.0, rows: 2, cols: 4, pairs: 4},
-    medium: {time: 90, multiplier: 1.3, rows: 3, cols: 4, pairs: 6},
-    hard: {time: 60, multiplier: 1.6, rows: 4, cols: 4, pairs: 8}
+    easy: { time: 120, multiplier: 1.0, rows: 2, cols: 4, pairs: 4 },
+    medium: { time: 90, multiplier: 1.3, rows: 3, cols: 4, pairs: 6 },
+    hard: { time: 60, multiplier: 1.6, rows: 4, cols: 4, pairs: 8 }
   }
 
   let state = {
@@ -294,6 +295,15 @@ function initGame() {
 
   function flipCard(card, cardElement) {
     if (state.lockBoard || card.matched || cardElement.classList.contains('flipped')) return;
+
+    click.currentTime = 0;
+    click.play();
+    click.volume = 0.03;
+
+    setTimeout(() => {
+      click.pause();
+    }, 1000);
+
     cardElement.classList.add('flipped');
     if (!state.firstCard) {
       state.firstCard = { card, element: cardElement };

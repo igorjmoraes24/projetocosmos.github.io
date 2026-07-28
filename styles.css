@@ -112,18 +112,35 @@ body::after {
 }
 
 @keyframes stars-twinkle {
-    0%, 100% { opacity: 0.55; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 @keyframes stars-drift {
-    from { background-position: 0 0; }
-    to { background-position: -340px 260px; }
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -340px 260px;
+    }
 }
 
 @keyframes nebula-drift {
-    0% { transform: translate3d(0, 0, 0) scale(1); }
-    100% { transform: translate3d(-2%, 2%, 0) scale(1.05); }
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(-2%, 2%, 0) scale(1.05);
+    }
 }
 
 /* ============ Header ============ */
@@ -148,22 +165,24 @@ body::after {
     gap: 14px;
 }
 
-.logo-mark {
-    width: 48px;
-    height: 48px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    font-size: 22px;
-    color: #fff;
-    background: radial-gradient(circle at 30% 30%, var(--neon-blue), var(--neon-violet) 70%);
-    box-shadow: 0 0 18px #8b5cf6aa, 0 0 40px #35d8ff55;
-    animation: logo-float 4s ease-in-out infinite;
+
+
+.logo-mark img {
+    width: 58px;
+    height: 58px;
+    border-radius: 30px;
 }
 
 @keyframes logo-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-4px) rotate(6deg); }
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-4px) rotate(6deg);
+    }
 }
 
 .site-header h1 {
@@ -217,7 +236,13 @@ body::after {
 }
 
 /* ============ Shared panel look ============ */
-.modal-card,
+.modal-card {
+    background-color: var(--bg-space);
+    align-items: center;
+    border-radius: 10px;
+
+}
+
 .info-card,
 .ranking-card,
 .board-panel,
@@ -383,7 +408,7 @@ body::after {
     text-align: left;
 }
 
-.setup-modal-card > p {
+.setup-modal-card>p {
     color: var(--text-dim);
     font-size: 14px;
     line-height: 1.5;
@@ -408,7 +433,7 @@ body::after {
     display: block;
     font-size: 11px;
     letter-spacing: 1px;
-    color: var(--text-dim);
+    color: var(--neon-gold);
     margin-bottom: 8px;
     font-family: var(--font-display);
 }
@@ -421,7 +446,6 @@ body::after {
 .difficulty {
     padding: 9px 16px;
     border-radius: 999px;
-    border: 1px solid #ffffff26;
     background: transparent;
     color: var(--text-dim);
     font-family: var(--font-body);
@@ -431,22 +455,61 @@ body::after {
     transition: all 0.2s ease;
 }
 
-.difficulty:hover {
-    color: #fff;
-    border-color: var(--neon-blue);
+.difficulty[data-level="easy"] {
+    border: 1px solid rgb(48, 133, 8);
 }
 
-.difficulty.active {
-    color: #0a0821;
-    background: linear-gradient(90deg, var(--neon-blue), var(--neon-violet));
+.difficulty[data-level="medium"] {
+    border: 1px solid rgb(199, 186, 5);
+}
+
+.difficulty[data-level="hard"] {
+    border: 1px solid rgb(190, 2, 2);
+}
+
+.difficulty[data-level="easy"]:hover {
+    color: #fff;
+    border-color: rgb(68, 212, 1);
+    transition: 0.5s;
+}
+
+.difficulty[data-level="medium"]:hover {
+    color: #fff;
+    border-color: rgb(255, 238, 0);
+    transition: 0.5s;
+}
+
+.difficulty[data-level="hard"]:hover {
+    color: #fff;
+    border-color: rgb(255, 0, 0);
+    transition: 0.5s;
+}
+
+.difficulty[data-level="easy"].active {
+    color: #ffffff;
+    background: rgb(68, 212, 1);
     border-color: transparent;
-    box-shadow: 0 0 16px #8b5cf666;
+    box-shadow: 0 0 16px #69f65c66;
+}
+
+.difficulty[data-level="medium"].active {
+    color: #fff;
+    background: rgb(255, 238, 0);
+    border-color: transparent;
+    box-shadow: 0 0 16px #ffee0066;
+}
+
+.difficulty[data-level="hard"].active {
+    color: #fffcfc;
+    background: rgb(255, 0, 0);
+    border-color: transparent;
+    box-shadow: 0 0 16px #f65c5c66;
 }
 
 .timer-toggle-control {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .switch {
@@ -483,12 +546,12 @@ body::after {
     transition: transform 0.2s ease;
 }
 
-.switch input:checked + .slider {
+.switch input:checked+.slider {
     background: linear-gradient(90deg, var(--neon-blue), var(--neon-violet));
     box-shadow: 0 0 12px #35d8ff77;
 }
 
-.switch input:checked + .slider::before {
+.switch input:checked+.slider::before {
     transform: translateX(20px);
 }
 
@@ -507,7 +570,7 @@ body::after {
     gap: 4px;
 }
 
-.stats-strip > div {
+.stats-strip>div {
     padding: 10px 16px;
     background: var(--bg-panel);
     border: 1px solid #ffffff17;
@@ -621,13 +684,13 @@ body::after {
     background:
         radial-gradient(circle at 30% 30%, #35d8ff26, transparent 60%),
         linear-gradient(145deg, #241f5c, #14113a);
-    border: 1px solid var(--border-glow);
+    border: 1px solid var(--neon-gold);
     box-shadow: inset 0 0 20px #8b5cf633;
 }
 
 .card-back::after {
     content: '\2726';
-    color: var(--neon-blue);
+    color: var(--neon-gold);
     font-size: clamp(16px, 3vw, 26px);
     opacity: 0.7;
     text-shadow: 0 0 12px #35d8ff99;
@@ -657,9 +720,17 @@ body::after {
 }
 
 @keyframes card-pulse {
-    0% { box-shadow: 0 0 0px #39d98500; }
-    50% { box-shadow: 0 0 26px #39d985cc; }
-    100% { box-shadow: 0 0 0px #39d98500; }
+    0% {
+        box-shadow: 0 0 0px #39d98500;
+    }
+
+    50% {
+        box-shadow: 0 0 26px #39d985cc;
+    }
+
+    100% {
+        box-shadow: 0 0 0px #39d98500;
+    }
 }
 
 /* ============ Sidebar ============ */
@@ -812,8 +883,15 @@ body::after {
 }
 
 @keyframes modal-pop {
-    from { transform: scale(0.92); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .modal h3 {
@@ -851,7 +929,11 @@ body::after {
 }
 
 .modal-header h3 {
-    color: #fff;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 22pt;
 }
 
 .modal-close {
