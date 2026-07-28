@@ -43,28 +43,28 @@ function initGame() {
   playerNameLabel.textContent = playerName;
 
   const cardImages = [
-    'img/jupiter.png',
-    'img/lua.png',
-    'img/marte.png',
-    'img/mercurio.png',
-    'img/netuno.png',
-    'img/plutao.png',
-    'img/saturno.png',
-    'img/sol.png',
-    'img/terra.png',
-    'img/urano.png',
-    'img/venus.png',
-    'img/asteroide.png',
-    'img/ceres.png',
-    'img/haumea.png',
-    'img/makemake.png',
-    'img/galaxiaEliptica.png',
-    'img/galaxiaEspiral.png',
-    'img/galaxiaIrregular.png',
-    'img/Estrela%20Amarela.png',
-    'img/Estrela%20Azul.png',
-    'img/Estrela%20Vermelha.png',
-    'img/Estrela%20branca.png'
+    { value: 'img/jupiter.png', name: 'Júpiter' },
+    { value: 'img/lua.png', name: 'Lua' },
+    { value: 'img/marte.png', name: 'Marte' },
+    { value: 'img/mercurio.png', name: 'Mercúrio' },
+    { value: 'img/netuno.png', name: 'Netuno' },
+    { value: 'img/plutao.png', name: 'Plutão' },
+    { value: 'img/saturno.png', name: 'Saturno' },
+    { value: 'img/sol.png', name: 'Sol' },
+    { value: 'img/terra.png', name: 'Terra' },
+    { value: 'img/urano.png', name: 'Urano' },
+    { value: 'img/venus.png', name: 'Vênus' },
+    { value: 'img/asteroide.png', name: 'Asteroide' },
+    { value: 'img/ceres.png', name: 'Ceres' },
+    { value: 'img/haumea.png', name: 'Haumea' },
+    { value: 'img/makemake.png', name: 'Makemake' },
+    { value: 'img/galaxiaEliptica.png', name: 'Galáxia Elíptica' },
+    { value: 'img/galaxiaEspiral.png', name: 'Galáxia Espiral' },
+    { value: 'img/galaxiaIrregular.png', name: 'Galáxia Irregular' },
+    { value: 'img/Estrela%20Amarela.png', name: 'Estrela Amarela' },
+    { value: 'img/Estrela%20Azul.png', name: 'Estrela Azul' },
+    { value: 'img/Estrela%20Vermelha.png', name: 'Estrela Vermelha' },
+    { value: 'img/Estrela%20branca.png', name: 'Estrela Branca' }
   ];
   const rankingStorageKey = 'memory-game-ranking';
 
@@ -171,7 +171,10 @@ function initGame() {
       cardElement.className = 'card';
       cardElement.dataset.id = card.id;
       cardElement.innerHTML = `
-        <div class="card-face card-front"><img src="${card.value}" alt="Carta" class="card-image"></div>
+        <div class="card-face card-front">
+          <img src="${card.value.value}" alt="${card.value.name}" class="card-image">
+          <span class="card-name">${card.value.name}</span>
+        </div>
         <div class="card-face card-back"></div>
       `;
       cardElement.addEventListener('click', () => flipCard(card, cardElement));

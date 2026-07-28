@@ -717,6 +717,19 @@ body::after {
     transform: rotateY(180deg);
     background: radial-gradient(circle at 35% 30%, #1c1747, #0d0b26);
     border: 1px solid #ffffff1f;
+    flex-direction: column;
+    gap: 4px;
+    display: flex;
+    text-align: center;
+    padding: 6px;
+}
+
+.card-name {
+    font-size: clamp(9px, 1.6vw, 13px);
+    font-weight: 600;
+    color: #f4f1ff;
+    text-shadow: 0 0 8px #8b5cf699;
+    line-height: 1.1;
 }
 
 .card-back {
@@ -737,8 +750,8 @@ body::after {
 }
 
 .card-image {
-    width: 68%;
-    height: 68%;
+    width: 60%;
+    height: 55%;
     object-fit: contain;
     filter: drop-shadow(0 0 10px #8b5cf655);
 }
