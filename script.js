@@ -19,6 +19,10 @@ function initGame() {
   const comboProgressBar = document.getElementById('comboProgress');
   const difficultyButtons = document.querySelectorAll('.difficulty');
   const timerToggleButton = document.getElementById('timerToggle');
+  const customSettingsPanel = document.getElementById('customSettings');
+  const customPairsInput = document.getElementById('customPairs');
+  const customMultiplierInput = document.getElementById('customMultiplier');
+  const customTimeInput = document.getElementById('customTime');
   const setupModal = document.getElementById('setupModal');
   const closeSetupModalButton = document.getElementById('closeSetupModal');
   const startMatchButton = document.getElementById('startMatchButton');
@@ -67,7 +71,39 @@ function initGame() {
   const config = {
     easy: { time: 120, multiplier: 1.0, rows: 2, cols: 4, pairs: 4 },
     medium: { time: 90, multiplier: 1.3, rows: 3, cols: 4, pairs: 6 },
-    hard: { time: 60, multiplier: 1.6, rows: 4, cols: 4, pairs: 8 }
+    hard: {time: 60, multiplier: 1.6, rows: 4, cols: 4, pairs: 8},
+    custom: {time: 90, multiplier: 1.5, rows: 4, cols: 4, pairs: 8}
+  }
+
+  function computeAutoLayout(totalCards) {
+    let rows = 1;
+    let cols = totalCards;
+    for (let candidate = 1; candidate <= Math.sqrt(totalCards); candidate += 1) {
+      if (totalCards % candidate === 0) {
+        rows = candidate;
+        cols = totalCards / candidate;
+      }
+    }
+    return { rows, cols };
+  }
+
+  function clampNumber(value, min, max, fallback) {
+    const parsed = Number(value);
+    if (Number.isNaN(parsed)) return fallback;
+    return Math.min(max, Math.max(min, parsed));
+  }
+
+  function applyCustomConfig() {
+    const pairs = Math.round(clampNumber(customPairsInput.value, 2, cardImages.length, 8));
+    const multiplier = clampNumber(customMultiplierInput.value, 0.5, 3, 1.5);
+    const time = Math.round(clampNumber(customTimeInput.value, 10, 3600, 90));
+    const { rows, cols } = computeAutoLayout(pairs * 2);
+
+    customPairsInput.value = pairs;
+    customMultiplierInput.value = multiplier;
+    customTimeInput.value = time;
+
+    config.custom = { time, multiplier, rows, cols, pairs };
   }
 
   let state = {
@@ -88,7 +124,7 @@ function initGame() {
 
   let pendingLevel = state.level;
   let hasStartedOnce = false;
-  const levelNames = { easy: 'Fácil', medium: 'Médio', hard: 'Difícil' };
+  const levelNames = { easy: 'Fácil', medium: 'Médio', hard: 'Difícil', custom: 'Personalizado' };
 
   function shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
@@ -364,6 +400,7 @@ function initGame() {
     difficultyButtons.forEach(button => {
       button.classList.toggle('active', button.dataset.level === level);
     });
+    customSettingsPanel.classList.toggle('is-hidden', level !== 'custom');
   }
 
   function openSetupModal() {
@@ -382,6 +419,9 @@ function initGame() {
   }
 
   function confirmSetup() {
+    if (pendingLevel === 'custom') {
+      applyCustomConfig();
+    }
     state.level = pendingLevel;
     state.timerEnabled = timerToggleButton.checked;
     hasStartedOnce = true;

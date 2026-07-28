@@ -102,7 +102,22 @@
                 <div class="difficulty-buttons">
                     <button class="difficulty active" data-level="easy" type="button">Fácil</button>
                     <button class="difficulty" data-level="medium" type="button">Médio</button>
-                    <button class="difficulty" data-level="hard" type="button">Difícil</button>
+                    <button class="difficulty" data-level="hard" type="button">Difícil</button>                    <button class="difficulty" data-level="custom" type="button">Personalizado</button>
+                </div>
+            </div>
+
+            <div id="customSettings" class="custom-settings is-hidden">
+                <div class="custom-field">
+                    <label for="customPairs">NÚMERO DE PARES (2 a 22)</label>
+                    <input id="customPairs" type="number" min="2" max="22" step="1" value="8">
+                </div>
+                <div class="custom-field">
+                    <label for="customMultiplier">MULTIPLICADOR DE PONTUAÇÃO (0.5 a 3)</label>
+                    <input id="customMultiplier" type="number" min="0.5" max="3" step="0.1" value="1.5">
+                </div>
+                <div class="custom-field custom-field-timer">
+                    <label for="customTime">TEMPO (segundos)</label>
+                    <input id="customTime" type="number" min="10" max="3600" step="5" value="90">
                 </div>
             </div>
 
