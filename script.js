@@ -35,9 +35,9 @@ function initGame() {
   const fullRankingList = document.getElementById('fullRankingList');
   const closeFullRankingModalButton = document.getElementById('closeFullRankingModal');
   const scoreModal = document.getElementById('scoreModal');
-  const modalScoreValue = document.getElementById('modalScoreValue');
-  const modalPlayerName = document.getElementById('modalPlayerName');
-  const playAgainButton = document.getElementById('playAgainButton');
+  const modalScoreValue = document.querySelectorAll('.modalScoreValue');
+  const modalPlayerName = document.querySelectorAll('.modalPlayerName');
+  const playAgainButton = document.querySelector('.playAgainButton');
   const playerNameLabel = document.getElementById('playerNameLabel');
 
   playerNameLabel.textContent = playerName;
@@ -71,8 +71,8 @@ function initGame() {
   const config = {
     easy: { time: 120, multiplier: 1.0, rows: 2, cols: 4, pairs: 4 },
     medium: { time: 90, multiplier: 1.3, rows: 3, cols: 4, pairs: 6 },
-    hard: {time: 60, multiplier: 1.6, rows: 4, cols: 4, pairs: 8},
-    custom: {time: 90, multiplier: 1.5, rows: 4, cols: 4, pairs: 8}
+    hard: { time: 60, multiplier: 1.6, rows: 4, cols: 4, pairs: 8 },
+    custom: { time: 90, multiplier: 1.5, rows: 4, cols: 4, pairs: 8 }
   }
 
   function computeAutoLayout(totalCards) {
@@ -278,9 +278,21 @@ function initGame() {
     renderRanking();
   }
 
-  function openScoreModal() {
-    modalPlayerName.textContent = playerName;
-    modalScoreValue.textContent = state.score;
+  function openScoreModal(perdeu) {
+    if (perdeu) {
+      document.getElementById('won').style.display = 'none';
+      document.getElementById('lost').style.display = 'flex';
+    }
+    else {
+      document.getElementById('won').style.display = 'flex';
+      document.getElementById('lost').style.display = 'none';
+    }
+    modalPlayerName.forEach((texto) => {
+      texto.textContent = playerName;
+    })
+    modalScoreValue.forEach((texto) => {
+      texto.textContent = state.score;
+    })
     scoreModal.classList.remove('hidden');
   }
 
@@ -306,7 +318,7 @@ function initGame() {
       timerText.textContent = formatTime(state.timeLeft);
       if (state.timeLeft <= 0) {
         clearInterval(state.timerId);
-        endGame();
+        endGame(true);
       }
     }, 1000);
   }
@@ -327,22 +339,22 @@ function initGame() {
     startTimer();
   }
 
-  function endGame() {
+  function endGame(perdeu = false) {
     state.lockBoard = true;
     saveScoreToRanking();
-    setTimeout(() => openScoreModal(), 120);
+    setTimeout(() => openScoreModal(perdeu), 120);
   }
 
   function flipCard(card, cardElement) {
-    if (state.lockBoard || card.matched || cardElement.classList.contains('flipped')) return;
-
-    click.currentTime = 0;
-    click.play();
-    click.volume = 0.03;
-
     setTimeout(() => {
       click.pause();
     }, 1000);
+    if (state.lockBoard || card.matched || cardElement.classList.contains('flipped')) return;
+
+    const sound = click.cloneNode();
+    sound.volume = 0.03;
+    sound.play();
+
 
     cardElement.classList.add('flipped');
     if (!state.firstCard) {
@@ -395,10 +407,9 @@ function initGame() {
   function selectPendingDifficulty(level) {
     pendingLevel = level;
 
-    mouse.play()
-    setTimeout(() => {
-      click.pause();
-    }, 50);
+   const cmouse = mouse.cloneNode();
+   cmouse.volume = 0.05;
+   cmouse.play();
 
     difficultyButtons.forEach(button => {
       button.classList.toggle('active', button.dataset.level === level);

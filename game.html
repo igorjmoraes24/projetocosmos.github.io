@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Memória Cosmica</title>
     <link rel="stylesheet" href="styles.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" href="img/logo.jpeg">
 </head>
+
 <body>
     <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
 
@@ -14,7 +17,7 @@
         <div class="logo-box">
             <div class="logo-mark"><img src="img/logo.jpeg" alt=""></i></div>
             <div>
-                <h1>Memória Cosmica</h1>
+                <h1>Memória Cósmica</h1>
                 <p>Desafie sua memória no espaço</p>
             </div>
         </div>
@@ -51,21 +54,21 @@
                     </div>
                     <div class="combo-panel">
                         <div class="combo-header">
-                            <span>Combo</span>
+                            <span>COMBO</span>
                             <strong id="comboValue">0x</strong>
                         </div>
                         <div class="combo-track">
                             <div id="comboProgress" class="combo-fill"></div>
                         </div>
                     </div>
-                        <div>
-                            <span>PARES ENCONTRADOS</span>
-                            <strong id="pairsFound">0 / 8</strong>
+                    <div>
+                        <span>PARES ENCONTRADOS</span>
+                        <strong id="pairsFound">0 / 8</strong>
                     </div>
-                        <div class="stat-box">
-                            <span>TENTATIVAS</span>
-                            <strong id="attempts">0</strong>
-                        </div>
+                    <div class="stat-box">
+                        <span>TENTATIVAS</span>
+                        <strong id="attempts">0</strong>
+                    </div>
                 </div>
 
                 <div class="board-panel">
@@ -79,7 +82,7 @@
                     <div class="clock" id="timer">02:00</div>
                 </div>
                 <div class="ranking-card">
-                    <h2>RANKING SEMANAL</h2>
+                    <h2>RANKING DA VITÓRIA</h2>
                     <div class="ranking-list-wrap">
                         <ol id="rankingList"></ol>
                     </div>
@@ -93,7 +96,8 @@
         <div class="modal-card setup-modal-card">
             <div class="modal-header">
                 <h3 id="setupModalTitle">Configurar Partida</h3>
-                <button id="closeSetupModal" class="modal-close is-hidden" type="button" aria-label="Fechar configurações">✕</button>
+                <button id="closeSetupModal" class="modal-close is-hidden" type="button"
+                    aria-label="Fechar configurações">✕</button>
             </div>
             <p>Escolha a dificuldade e o modo de tempo antes de iniciar sua jornada pela memória cósmica.</p>
 
@@ -102,7 +106,18 @@
                 <div class="difficulty-buttons">
                     <button class="difficulty active" data-level="easy" type="button">Fácil</button>
                     <button class="difficulty" data-level="medium" type="button">Médio</button>
-                    <button class="difficulty" data-level="hard" type="button">Difícil</button>                    <button class="difficulty" data-level="custom" type="button">Personalizado</button>
+                    <button class="difficulty" data-level="hard" type="button">Difícil</button> <button
+                        class="difficulty" data-level="custom" type="button">Personalizado</button>
+                </div>
+            </div>
+            
+            <div id="modal-vitoria" class="modal hidden">
+                <div class="modal-conteudo">
+                    <h2> Vitória! </h2>
+                    <p>Parabéns, você encontrou todos os pares!</p>
+                    <p>Sua pontuação final: <span id="pontuacao-final">0</span></p>
+
+                    <button id="btn-jogar-novamente">Jogar Novamente</button>
                 </div>
             </div>
 
@@ -137,19 +152,38 @@
 
     <div id="scoreModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="scoreModalTitle">
         <div class="modal-card">
-            <h3 id="scoreModalTitle">Fim de jogo!</h3>
-            <p>Parabéns, <strong id="modalPlayerName"></strong>! Você marcou <strong id="modalScoreValue">0</strong> pontos e sua pontuação já foi salva no ranking.</p>
+            <h3 class="scoreModalTitle">Fim de jogo!</h3>
+            <div id="won">
+                <p>Parabéns, <strong class="modalPlayerName"></strong>! Você marcou <strong class="modalScoreValue">0</strong>
+                    pontos e sua pontuação já foi salva no ranking.</p>
+            </div>
+            <div id="lost" style="display: none;">
+                <p>Infelizmente <strong class="modalPlayerName"></strong>, você perdeu! Você marcou <strong class="modalScoreValue">0</strong>
+                    pontos mas sua pontuação não foi salva no ranking.</p>
+            </div>
             <div class="modal-actions">
-                <button id="playAgainButton" class="modal-button primary" type="button">Jogar novamente</button>
+                <button class="playAgainButton modal-button primary" type="button">Jogar novamente</button>
             </div>
         </div>
     </div>
+<!-- 
+    <div id="loseModal" class="modal hidden">
+        <div class="modal-card">
+            <h3 id="scoreModalTitle">Fim de jogo!</h3>
+            <p>Infelizmente, você perdeu! <strong class="modalPlayerName"></strong>! Você marcou <strong class="modalScoreValue">0</strong>
+                pontos e sua pontuação já foi salva no ranking.</p>
+            <div class="modal-actions">
+                <button class="playAgainButton modal-button primary" type="button">Jogar novamente</button>
+            </div>
+        </div>
+    </div> -->
 
     <div id="fullRankingModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="fullRankingTitle">
         <div class="modal-card ranking-modal-card">
             <div class="modal-header">
                 <h3 id="fullRankingTitle">Ranking completo</h3>
-                <button id="closeFullRankingModal" class="modal-close" type="button" aria-label="Fechar ranking">✕</button>
+                <button id="closeFullRankingModal" class="modal-close" type="button"
+                    aria-label="Fechar ranking">✕</button>
             </div>
             <ol id="fullRankingList" class="full-ranking-list"></ol>
         </div>
@@ -157,4 +191,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
